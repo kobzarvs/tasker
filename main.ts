@@ -19,7 +19,7 @@ let parsedYamlFile;
 try {
     parsedYamlFile = await yamlLoader.parseFile(filename);
 } catch (e) {
-    console.log(e);
+    console.error('Task file not found');
     Deno.exit(1);
 }
 
