@@ -8,7 +8,7 @@ Your need to have `deno` installed.
 ## Run
 
 ```bash
-~ deno run --allow-run --allow-read https://deno.land/x/tasker@0.4.0/main.ts --help
+~ deno run --allow-run --allow-read https://deno.land/x/tasker/main.ts --help
 Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
 
 Options:
