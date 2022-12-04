@@ -1,11 +1,28 @@
 import { YamlLoader } from 'https://deno.land/x/yaml_loader/mod.ts';
+import { parse } from 'https://deno.land/std/flags/mod.ts';
 
+
+const parsedArgs = parse(Deno.args)
 
 const PLACEHOLDER_CMD = '{{cmd}}';
 const PLACEHOLDER_HELP = '{{help}}';
+let filename = 'tasks.yaml';
+
+
+if (parsedArgs.file || parsedArgs.f) {
+    filename = parsedArgs.file || parsedArgs.f || filename;
+}
 
 const yamlLoader = new YamlLoader();
-const parsedYamlFile = await yamlLoader.parseFile('tasks.yaml');
+let parsedYamlFile;
+
+try {
+    parsedYamlFile = await yamlLoader.parseFile(filename);
+} catch (e) {
+    console.log(e);
+    Deno.exit(1);
+}
+
 
 const helps = {};
 const cmds = {};
@@ -68,29 +85,53 @@ function showHelp() {
     console.log(help);
 }
 
-if (['help', '--help', '?', '-h'].some((i) => Deno.args.includes(i))) {
-    showHelp();
-    Deno.exit(0);
-} else {
-    const cmd = Object.keys(cmds).find((c) => Deno.args.includes(c));
-    if (!cmd) {
-        console.error('Error: Invalid command\n');
-        showHelp();
-        Deno.exit(1);
-    }
 
-    for await (let c of cmds[cmd]) {
-        try {
-            const p = Deno.run({
-                cmd: c.split(' '),
-                stdout: 'inherit',
-                stderr: 'inherit',
-            });
-            await p.status();
-        } catch (e) {
-            console.error(e);
-            console.error('Error: Command failed: "' + c + '" in section "' + cmd + '"');
+const HELP = `Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
+
+Options:
+    -h, --help      Show this help
+    -l, --list      List all tasks
+    -v, --version   Show version
+`;
+
+switch(true) {
+    case parsedArgs.help || parsedArgs.h:
+        console.log(HELP);
+        Deno.exit(0);
+
+    case parsedArgs.list || parsedArgs.l:
+        console.log('Tasks:');
+        Object.keys(cmds).forEach((k) => console.log('  ' + k));
+        Deno.exit(0);
+
+    case parsedArgs.version:
+        console.log('0.0.1');
+        Deno.exit(0);
+
+    case parsedArgs?._.includes('help'):
+        showHelp();
+        Deno.exit(0);
+
+    default:
+        const cmd = Object.keys(cmds).find((c) => Deno.args.includes(c));
+        if (!cmd) {
+            console.error('Error: Invalid command\n');
+            showHelp();
             Deno.exit(1);
         }
-    }
+
+        for await (let c of cmds[cmd]) {
+            try {
+                const p = Deno.run({
+                    cmd: c.split(' '),
+                    stdout: 'inherit',
+                    stderr: 'inherit',
+                });
+                await p.status();
+            } catch (e) {
+                console.error(e);
+                console.error('Error: Command failed: "' + c + '" in section "' + cmd + '"');
+                Deno.exit(1);
+            }
+        }
 }
