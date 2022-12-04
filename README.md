@@ -80,3 +80,19 @@ Starting....
 cmd 2
 cmd 3
 ```
+
+### Pass arguments to task
+
+```bash
+~ deno run --allow-run --allow-read https://deno.land/x/tasker/main.ts ls -- -la
+Listing...
+total 24
+drwxr-xr-x  1 diver diver  104 дек  4 06:51 .
+drwxr-xr-x. 1 diver diver 2766 дек  4 05:01 ..
+drwxr-xr-x  1 diver diver  204 дек  4 06:34 .git
+-rw-r--r--  1 diver diver   12 дек  4 05:11 .gitignore
+-rw-r--r--  1 diver diver 1071 дек  4 05:01 LICENSE
+-rw-r--r--  1 diver diver 3875 дек  4 06:51 main.ts
+-rw-r--r--  1 diver diver 2209 дек  4 06:33 README.md
+-rw-r--r--  1 diver diver  779 дек  4 06:40 tasks.yaml
+```

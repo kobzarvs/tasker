@@ -21,3 +21,8 @@
     echo Stopping...
     echo cmd 2
     echo cmd 3
+
+- ls: |
+    # Directory listing
+    echo Listing...
+    ls -la

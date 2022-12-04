@@ -1,23 +1,29 @@
 import { YamlLoader } from 'https://deno.land/x/yaml_loader/mod.ts';
 import { parse } from 'https://deno.land/std/flags/mod.ts';
 
-const VERSION = '1.1.0';
+
+const VERSION = '1.1.1';
 const HELP = `Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
 
 Options:
     -f, --file <file>   Specify an alternate Taskfile
     -l, --list          List all tasks
     -v, --version       Show version
-
+        --              Stop parsing options and pass all following
     -h, --help          Show this help
 `;
 
-const parsedArgs = parse(Deno.args)
+const parsedArgs = parse(Deno.args);
+const foreignArgsIdx = Deno.args.findIndex((v) => v === '--');
+let foreignArgs = [];
+
+if (foreignArgsIdx !== -1) {
+    foreignArgs = Deno.args.slice(foreignArgsIdx + 1);
+}
 
 const PLACEHOLDER_CMD = '{{cmd}}';
 const PLACEHOLDER_HELP = '{{help}}';
 let filename = 'tasks.yaml';
-
 
 if (parsedArgs.file || parsedArgs.f) {
     filename = parsedArgs.file || parsedArgs.f || filename;
@@ -33,7 +39,6 @@ try {
     console.log(HELP);
     Deno.exit(1);
 }
-
 
 const helps = {};
 const cmds = {};
@@ -96,8 +101,7 @@ function showHelp() {
     console.log(help);
 }
 
-
-switch(true) {
+switch (true) {
     case parsedArgs.help || parsedArgs.h:
         console.log(HELP);
         Deno.exit(0);
@@ -126,7 +130,7 @@ switch(true) {
         for await (let c of cmds[cmd]) {
             try {
                 const p = Deno.run({
-                    cmd: c.split(' '),
+                    cmd: c.split(' ').concat(foreignArgs),
                     stdout: 'inherit',
                     stderr: 'inherit',
                 });
