@@ -1,7 +1,7 @@
 import { YamlLoader } from 'https://deno.land/x/yaml_loader/mod.ts';
 import { parse } from 'https://deno.land/std/flags/mod.ts';
 
-
+const VERSION = '1.0.0';
 const HELP = `Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
 
 Options:
@@ -106,7 +106,7 @@ switch(true) {
         Deno.exit(0);
 
     case parsedArgs.version:
-        console.log('0.0.1');
+        console.log('v1.0.0');
         Deno.exit(0);
 
     case parsedArgs?._.includes('help'):
