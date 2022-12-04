@@ -1,0 +1,25 @@
+- help: |
+    Available commands:
+      {{cmd}}                    {{help}}
+
+    Options:
+      -a, --all                  do not ignore entries starting with
+      -A, --almost-all           do not list implied and
+          --author               with -l, print the author of each file
+      -b, --escape               print C-style escapes for nongraphic characters
+          --block-size=SIZE      with -l, scale sizes by SIZE when printing them;
+                                 e.g., '--block-size=M'; see SIZE format below
+- start: |
+    # Help line 1...
+    echo Starting....
+    echo cmd 2
+    
+    // Help line 1
+    echo cmd 3
+
+- stop: |
+    # Help for stop
+    # line 2
+    echo Stopping...
+    echo cmd 2
+    echo cmd 3
