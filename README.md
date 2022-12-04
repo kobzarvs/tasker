@@ -18,7 +18,7 @@ Options:
     -v, --version   Show version
 ```
 
-tasks.yaml example:
+#### tasks.yaml example:
 
 ```yaml
 - help: |
@@ -44,4 +44,39 @@ tasks.yaml example:
     echo Stopping...
     echo cmd 2
     echo cmd 3
+```
+
+### Tasks list
+
+```bash
+~ deno run --allow-run --allow-read https://deno.land/x/tasker/main.ts --list
+Tasks:
+  start
+  stop
+```
+
+### Tasks help from yaml file
+
+```bash
+~ deno run --allow-run --allow-read https://deno.land/x/tasker/main.ts help
+Available commands:
+  start                      Help Lorem Ipsum is simply dummy text of the
+                             Lorem Ipsum is simply dummy text of the
+  stop                       Lorem Ipsum is simply dummy text of the
+                             Lorem Ipsum is simply dummy text of the
+
+Options:
+  -a, --all                  Lorem Ipsum is simply dummy text of the 
+  -A, --almost-all           printing and typesetting industry.
+      --author               Lorem Ipsum has been the industry's standard dummy
+                             e.g., '--block-size=M'; see SIZE format below
+```
+
+### Run task
+
+```bash
+~ deno run --allow-run --allow-read https://deno.land/x/tasker/main.ts start
+Starting....
+cmd 2
+cmd 3
 ```
