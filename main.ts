@@ -2,6 +2,14 @@ import { YamlLoader } from 'https://deno.land/x/yaml_loader/mod.ts';
 import { parse } from 'https://deno.land/std/flags/mod.ts';
 
 
+const HELP = `Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
+
+Options:
+    -h, --help      Show this help
+    -l, --list      List all tasks
+    -v, --version   Show version
+`;
+
 const parsedArgs = parse(Deno.args)
 
 const PLACEHOLDER_CMD = '{{cmd}}';
@@ -19,7 +27,8 @@ let parsedYamlFile;
 try {
     parsedYamlFile = await yamlLoader.parseFile(filename);
 } catch (e) {
-    console.error('Task file not found');
+    console.error('Task file not found\n');
+    console.log(HELP);
     Deno.exit(1);
 }
 
@@ -85,14 +94,6 @@ function showHelp() {
     console.log(help);
 }
 
-
-const HELP = `Usage: deno run --allow-read --allow-run https://deno.land/x/tasker/main.ts [options] [task]
-
-Options:
-    -h, --help      Show this help
-    -l, --list      List all tasks
-    -v, --version   Show version
-`;
 
 switch(true) {
     case parsedArgs.help || parsedArgs.h:
