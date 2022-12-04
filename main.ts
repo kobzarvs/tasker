@@ -106,7 +106,7 @@ switch(true) {
         Deno.exit(0);
 
     case parsedArgs.version:
-        console.log('v1.0.0');
+        console.log('v1.0.5');
         Deno.exit(0);
 
     case parsedArgs?._.includes('help'):
