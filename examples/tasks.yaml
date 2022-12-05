@@ -1,12 +1,12 @@
 - help: |
     Available commands:
-      {{cmd}}                    {{help}}
+      {{cmd}}             {{help}}
 
     Options:
-      -a, --all                  Lorem Ipsum is simply dummy text of the 
-      -A, --almost-all           printing and typesetting industry.
-          --author               Lorem Ipsum has been the industry's standard dummy
-                                 e.g., '--block-size=M'; see SIZE format below
+      -a, --all           Lorem Ipsum is simply dummy text of the 
+      -A, --almost-all    printing and typesetting industry.
+          --author        Lorem Ipsum has been the industry's standard dummy
+                          e.g., '--block-size=M'; see SIZE format below
 - start: |
     # Help Lorem Ipsum is simply dummy text of the
     echo Starting....

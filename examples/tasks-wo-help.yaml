@@ -1,0 +1,19 @@
+- start: |
+    # Help Lorem Ipsum is simply dummy text of the
+    echo Starting....
+    echo cmd 2
+    
+    // Lorem Ipsum is simply dummy text of the
+    echo cmd 3
+
+- stop: |
+    # Lorem Ipsum is simply dummy text of the
+    # lorem Ipsum is simply dummy text.
+    echo Stopping...
+    echo cmd 2
+    echo cmd 3
+
+- ls: |
+    # Directory listing
+    echo Listing...
+    ls -la

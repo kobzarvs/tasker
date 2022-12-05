@@ -16,6 +16,7 @@
     "moduleDetection": "force",
     "strict": true,
     "target": "esnext",
+    "suppressImplicitAnyIndexErrors": true,
     "useDefineForClassFields": true
   }
 }

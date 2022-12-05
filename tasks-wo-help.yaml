@@ -1,8 +1,0 @@
-- help: |
-    Help:
-      {{cmd}}:   {{help}}
-
-- ls: |
-    # Directory listing
-    echo Listing...
-    ls
